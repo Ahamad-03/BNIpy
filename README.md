@@ -21,6 +21,14 @@ Then import from bnipython folder. Or run Pip install from the repo folder.
 pip install .
 ```
 
+### 1.3 Using PyPI Install Third Party
+
+```
+pip install requests
+pip install pyOpenSSL
+pip install pytz
+```
+
 ## 2. Usage
 
 ### 2.1 Choose an API Product
@@ -164,7 +172,7 @@ holdAmountRelease = ogp.holdAmountRelease({
 
 ### 2.2.B Snap BI
 
-Create `One Gate Payment` class object
+Create `Snap BI` class object
 ```python
 from bnipython import BNIClient, SnapBI
 
