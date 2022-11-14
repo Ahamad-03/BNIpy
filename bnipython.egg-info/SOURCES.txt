@@ -1,3 +1,4 @@
+LICENSE
 README.md
 setup.py
 bnipython/__init__.py
