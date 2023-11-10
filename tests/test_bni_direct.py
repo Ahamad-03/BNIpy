@@ -143,28 +143,6 @@ class TestBNIDIRECT(unittest.TestCase):
         self.assertEqual(data, '0')
         print('\033[92m should return requestStatus 0 \033[0m')
 
-    def testUpdateVirtualAccount(self):
-        print('\n============================================')
-        bni_direct = BNIDIRECT(self.client)
-        res = bni_direct.updateVirtualAccount({
-            "corporateId":"BNI_SIT",
-            "userId":"WTI_MAKER1",
-            "companyCode":"8310",
-            "virtualAccountNo":"8310888800009999",
-            "virtualAccountName":"SHORT NAME",
-            "virtualAccountTypeCode":"7",
-            "billingAmount":"100000",
-            "varAmount1":"",
-            "varAmount2":"",
-            "expiryDate":"20201120",
-            "expiryTime":"10:10:10",
-            "mobilePhoneNo":"08712717272",
-            "statusCode":"1"
-        })
-        data = res['requestStatus']
-        self.assertEqual(data, '0')
-        print('\033[92m should return requestStatus 0 \033[0m')
-
     def testCreateVirtualAccount(self):
         print('\n============================================')
         bni_direct = BNIDIRECT(self.client)

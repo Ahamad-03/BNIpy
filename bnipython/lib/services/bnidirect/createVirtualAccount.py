@@ -28,7 +28,7 @@ def createVirtualAccount(params):
             'apiKey': params['config']['client']['apiKey'],
             'accessToken': params['config']['token'],
             'url': f'{params['config']['baseUrl']}',
-            'path': '/bnidirect/api/VirtualAccount/Update',
+            'path': '/bnidirect/api/VirtualAccount/Create',
             'signature': signature.split('.')[2],
             'timestamp': timeStamp,
             'data': payload,
