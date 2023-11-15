@@ -9,6 +9,11 @@ from bnipython.lib.services.bnidirect import createVirtualAccount
 from bnipython.lib.services.bnidirect import balanceInquiry
 from bnipython.lib.services.bnidirect import domesticSingleBIFastTransfer
 from bnipython.lib.services.bnidirect import inquiryForexRate
+from bnipython.lib.services.bnidirect import bulkPaymentMixed
+from bnipython.lib.services.bnidirect import payrollMixed
+from bnipython.lib.services.bnidirect import inquiryChildAccount
+from bnipython.lib.services.bnidirect import callbackApi
+from bnipython.lib.services.bnidirect import inquiryBIFastBeneficiary
 
 class BNIDIRECT():
      def __init__(self, client):
@@ -139,6 +144,66 @@ class BNIDIRECT():
 
      def inquiryForexRate(self, params):
          res = inquiryForexRate.inquiryForexRate({
+             'body': params,
+             'config': {
+                 'client': self.client,
+                 'baseUrl': self.baseUrl,
+                 'config': self.config,
+                 'token': self.token
+             }
+         })
+         return res
+     
+     def bulkPaymentMixed(self, params):
+         res = bulkPaymentMixed.bulkPaymentMixed({
+             'body': params,
+             'config': {
+                 'client': self.client,
+                 'baseUrl': self.baseUrl,
+                 'config': self.config,
+                 'token': self.token
+             }
+         })
+         return res
+     
+     def payrollMixed(self, params):
+         res = payrollMixed.payrollMixed({
+             'body': params,
+             'config': {
+                 'client': self.client,
+                 'baseUrl': self.baseUrl,
+                 'config': self.config,
+                 'token': self.token
+             }
+         })
+         return res
+     
+     def inquiryChildAccount(self, params):
+         res = inquiryChildAccount.inquiryChildAccount({
+             'body': params,
+             'config': {
+                 'client': self.client,
+                 'baseUrl': self.baseUrl,
+                 'config': self.config,
+                 'token': self.token
+             }
+         })
+         return res
+     
+     def callbackApi(self, params):
+         res = callbackApi.callbackApi({
+             'body': params,
+             'config': {
+                 'client': self.client,
+                 'baseUrl': self.baseUrl,
+                 'config': self.config,
+                 'token': self.token
+             }
+         })
+         return res
+     
+     def inquiryBIFastBeneficiary(self, params):
+         res = inquiryBIFastBeneficiary.inquiryBIFastBeneficiary({
              'body': params,
              'config': {
                  'client': self.client,
