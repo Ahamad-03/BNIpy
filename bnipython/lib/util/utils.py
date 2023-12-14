@@ -74,7 +74,7 @@ def generateUUID(length=16):
     uuid = ''.join(random.choice(characters) for _ in range(length))
     return uuid
 
-def generateBniDirectKey(params = {'corpId', 'userId', 'bniDirectKey'}):
-    data = f'{params['corpId'].lower()}{params['userId'].lower()}{params['bniDirectKey']}'
+def generateBniDirectKey(params = {'corporateId', 'userId', 'bniDirectKey'}):
+    data = f'{params['corporateId'].lower()}{params['userId'].lower()}{params['bniDirectKey']}'
     sha256_string = hashlib.sha256(data.encode()).hexdigest()
     return sha256_string.lower()

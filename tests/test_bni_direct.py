@@ -12,7 +12,7 @@ class TestBNIDIRECT(unittest.TestCase):
         'clientSecret': constants.CLIENT_SECRET_ENCRYPT,
         'apiKey': constants.API_KEY_ENCRYPT,
         'apiSecret': constants.API_SECRET_ENCRYPT,
-        'bniDirectApiKey': constants.BNI_DIRECT_KEY_ENCRYPT
+        'bniDirectKey': constants.BNI_DIRECT_KEY_ENCRYPT
     })
 
     # def testBulkGetStatus(self):
@@ -191,8 +191,8 @@ class TestBNIDIRECT(unittest.TestCase):
         print('\n============================================')
         bni_direct = BNIDIRECT(self.client)
         res = bni_direct.balanceInquiry({
-            "corporateId":"BNI_SIT",
-            "userId":"WTI_MAKER1",
+            "corporateId":"companymb",
+            "userId":"jenomaker",
             "accountList": ["116952891", "4447"]
         })
         data = res['requestStatus']
@@ -203,8 +203,8 @@ class TestBNIDIRECT(unittest.TestCase):
         print('\n============================================')
         bni_direct = BNIDIRECT(self.client)
         res = bni_direct.domesticSingleBIFastTransfer({
-            "corporateId": "BNI_SIT",
-            "userId": "WTI_MAKER1",
+            "corporateId": "companymb",
+            "userId": "jenomaker",
             "debitedAccountNo": "1000599764",
             "amountCurrency": "IDR",
             "amount": "500000",
@@ -235,8 +235,8 @@ class TestBNIDIRECT(unittest.TestCase):
         print('\n============================================')
         bni_direct = BNIDIRECT(self.client)
         res = bni_direct.inquiryForexRate({
-            "corporateId":"BNI_SIT",
-            "userId":"WTI_MAKER1",
+            "corporateId":"companymb",
+            "userId":"jenomaker",
             "currencyList": ["IDR", "USD"]
         })
         data = res['requestStatus']
@@ -247,8 +247,8 @@ class TestBNIDIRECT(unittest.TestCase):
         print('\n============================================')
         bni_direct = BNIDIRECT(self.client)
         res = bni_direct.bulkPaymentMixed({
-            "corporateId": "BNI_SIT",
-            "userId": "WTI_MAKER1",
+            "corporateId": "companymb",
+            "userId": "jenomaker",
             "apiRefNo": "TRX029SEPT23009971301",
             "instructionDate": "20230929",
             "session": "",
@@ -273,8 +273,8 @@ class TestBNIDIRECT(unittest.TestCase):
         print('\n============================================')
         bni_direct = BNIDIRECT(self.client)
         res = bni_direct.payrollMixed({
-            "corporateId": "BNI_SIT",
-            "userId": "WTI_MAKER1",
+            "corporateId": "companymb",
+            "userId": "jenomaker",
             "apiRefNo": "YXX029SEPT2300997131",
             "instructionDate": "20230929",
             "session": "",
@@ -299,8 +299,8 @@ class TestBNIDIRECT(unittest.TestCase):
         print('\n============================================')
         bni_direct = BNIDIRECT(self.client)
         res = bni_direct.inquiryChildAccount({
-            "corporateId": "BNI_SIT",
-            "userId": "WTI_MAKER1",
+            "corporateId": "companymb",
+            "userId": "jenomaker",
             "accountNo": "1000599684"
         })
         data = res['requestStatus']
@@ -311,8 +311,8 @@ class TestBNIDIRECT(unittest.TestCase):
         print('\n============================================')
         bni_direct = BNIDIRECT(self.client)
         res = bni_direct.callbackApi({
-            "corporateId": "COMPANYMB",
-            "userId": "SWAMAKER",
+            "corporateId": "companymb",
+            "userId": "jenomaker",
             "apiRefNo": "2324dab653f",
             "status": "Executed Successfully"
         })
@@ -324,8 +324,8 @@ class TestBNIDIRECT(unittest.TestCase):
         print('\n============================================')
         bni_direct = BNIDIRECT(self.client)
         res = bni_direct.inquiryBIFastBeneficiary({
-            "corporateId": "BNI_SIT",
-            "userId": "WTI_MAKER1",
+            "corporateId": "companymb",
+            "userId": "jenomaker",
             "usedProxy": "N",
             "beneficiaryAccountNo": "9832132281",
             "proxyId": "",

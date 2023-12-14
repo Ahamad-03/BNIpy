@@ -34,7 +34,7 @@ def domesticSingleBIFastTransfer(params):
         signature = generateSignature(
             {'body': payloadSignature, 'apiSecret': params['config']['client']['apiSecret']})
         bniDirectKey = generateBniDirectKey({
-                'corpId': params['body']['corporateId'], 
+                'corporateId': params['body']['corporateId'], 
                 'userId': params['body']['userId'], 
                 'bniDirectKey': params['config']['client']['bniDirectApiKey']
                 })
@@ -47,6 +47,6 @@ def domesticSingleBIFastTransfer(params):
             'signature': signature.split('.')[2],
             'timestamp': timeStamp,
             'data': payload,
-            'bniDirectKey': 'dc8f7943e027345677c7dade0441936c3bb3f8d697ef8f7b28ae5dfdeea78dd1'
+            'bniDirectKey': bniDirectKey
         })
         return responseBniDirect(params={'res': res})
