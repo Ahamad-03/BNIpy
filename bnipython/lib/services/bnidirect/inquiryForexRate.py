@@ -16,7 +16,7 @@ def inquiryForexRate(params):
         bniDirectKey = generateBniDirectKey({
                 'corporateId': params['body']['corporateId'], 
                 'userId': params['body']['userId'], 
-                'bniDirectKey': params['config']['client']['bniDirectApiKey']
+                'bniDirectKey': params['config']['client']['bniDirectKey']
                 })
         res = httpClient.requestV2BniDirect({
             'method': 'POST',
