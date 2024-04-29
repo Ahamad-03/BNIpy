@@ -8,6 +8,7 @@ import math
 import string
 from OpenSSL import crypto
 from datetime import datetime
+import time
 
 def generateSignature(params):
     # generate JWT header
@@ -75,3 +76,21 @@ def generateUUID(length=16):
     characters = string.ascii_uppercase + string.digits
     uuid = ''.join(random.choice(characters) for _ in range(length))
     return uuid
+
+def generateGUID():
+    # Generate a unique timestamp
+    timestamp = int(time.time() * 1000)
+
+    # Generate a random 32-bit integer
+    random_int = random.getrandbits(32)
+
+    # Format the GUID
+    guid = '{:08x}-{:04x}-{:04x}-{:04x}-{:012x}'.format(
+        timestamp & 0xFFFFFFFF,
+        (timestamp >> 32) & 0xFFFF,
+        ((timestamp >> 48) & 0x0FFF) | 0x4000,
+        ((timestamp >> 60) & 0x3F) | 0x80,
+        random_int
+    )
+
+    return guid

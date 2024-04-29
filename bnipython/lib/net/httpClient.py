@@ -96,3 +96,74 @@ class HttpClient():
         res = httpClient.getresponse()
         data = res.read()
         return json.loads(str(data.decode('utf-8')))
+    
+    # def requestOtr(self, options={'method', 'RequestId', 'ChannelId', 'url', 'path', 'data', 'timestamp'}):
+    #     url = str(options['url']).replace(
+    #         'http://', '').replace('https://', '')
+    #     httpClient = http.client.HTTPSConnection(url)
+    #     path = options['path']
+    #     url = f'{path}'
+    #     payload = json.dumps(options['data'])
+    #     headers = {
+    #         'User-Agent': 'bni-python/0.8.5',
+    #         'Content-Type': 'application/json',
+    #         'RequestId': options['RequestId'],
+    #         'RequestDateTime': options['timestamp'],
+    #         'ChannelId': options['ChannelId'],
+    #     }
+    #     print({'method': options['method'], 'url': url, 'headers': headers})
+    #     # method is Get
+    #     httpClient.request(options['method'], url, headers)
+    #     res = httpClient.getresponse()
+    #     data = res.read()
+    #     return json.loads(str(data.decode('utf-8')))\
+    def requestOtr(self, options=None):
+        if options is None:
+            options = {}
+        
+        # Validate necessary options
+        if 'url' not in options or 'path' not in options:
+            print("Error: URL and path must be provided in options.")
+            return None
+
+        # Prepare the URL
+        base_url = str(options['url']).replace('http://', '').replace('https://', '')
+        path = options['path']
+
+        # Prepare the headers
+        headers = {
+            'User-Agent': 'bni-python/0.8.5',
+            'Content-Type': 'application/json',
+            'RequestId': options.get('RequestId', ''),
+            'RequestDateTime': options.get('timestamp', ''),
+            'ChannelId': options.get('ChannelId', ''),
+        }
+
+        # Prepare the payload
+        payload = json.dumps(options.get('data', {})) if options.get('method', 'GET') != 'GET' else None  
+
+        print('base_url', base_url)
+        print('path', path)
+        print('payload', payload)
+        print('headers', headers)
+
+        # Create HTTP client and make the request
+        httpClient = http.client.HTTPSConnection(base_url)
+        try:
+            httpClient.request(options.get('method', 'GET'), path, body=payload, headers=headers)
+            res = httpClient.getresponse()
+            print('HTTP Status:', res.status)
+            raw_data = res.read()
+            print('Raw response data:', raw_data)
+            
+            if res.status == 204 or not raw_data:
+                print("No content to decode.")
+                return None
+            
+            return json.loads(raw_data.decode('utf-8'))
+        except json.JSONDecodeError:
+            print("Failed to decode JSON from response.")
+            return None
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return None
