@@ -38,6 +38,11 @@ def getTimestamp():
 def getTimestampBNIMove():
     return datetime.now(pytz.timezone('Asia/Jakarta')).strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + '+07:00'
 
+def getTimestampOTR():
+    current_time = datetime.now(pytz.timezone('Asia/Jakarta'))
+    formatted_time = current_time.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]
+    return formatted_time + 'TZD'
+
 def generateTokenSignature(params={'privateKeyPath', 'clientId', 'timeStamp'}):
     privateKeyPath = params['privateKeyPath']
     rsaPrivate = privateKeyPath.replace('./', '')

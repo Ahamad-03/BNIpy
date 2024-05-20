@@ -13,7 +13,7 @@ class HttpClient():
     def tokenRequest(self, options={'url', 'path', 'username', 'password'}):
         url = str(options['url']).replace(
             'http://', '').replace('https://', '')
-        httpClient = http.client.HTTPSConnection(url)
+        httpClient = http.client.HTTPSConnection(url, context = ssl._create_unverified_context())
         username = options['username']
         password = options['password']
         authorize = base64.b64encode(f'{username}:{password}'.encode('utf-8'))
@@ -129,32 +129,30 @@ class HttpClient():
         # Prepare the URL
         base_url = str(options['url']).replace('http://', '').replace('https://', '')
         path = options['path']
+        accessToken = options['accessToken']
+        # url = f'{path}?access_token={accessToken}'
 
         # Prepare the headers
         headers = {
             'User-Agent': 'bni-python/0.8.5',
             'Content-Type': 'application/json',
+            'x-api-key': options['apiKey'],
+            'x-signature': options['signature'],
+            'x-timestamp': options['timestamp'],
             'RequestId': options.get('RequestId', ''),
             'RequestDateTime': options.get('timestamp', ''),
             'ChannelId': options.get('ChannelId', ''),
+            'Authorization': f'Bearer {accessToken}'
         }
-
         # Prepare the payload
-        payload = json.dumps(options.get('data', {})) if options.get('method', 'GET') != 'GET' else None  
-
-        print('base_url', base_url)
-        print('path', path)
-        print('payload', payload)
-        print('headers', headers)
+        payload = json.dumps(options.get('data', {}));
 
         # Create HTTP client and make the request
-        httpClient = http.client.HTTPSConnection(base_url)
+        httpClient = http.client.HTTPSConnection(base_url, context = ssl._create_unverified_context())
         try:
             httpClient.request(options.get('method', 'GET'), path, body=payload, headers=headers)
             res = httpClient.getresponse()
-            print('HTTP Status:', res.status)
             raw_data = res.read()
-            print('Raw response data:', raw_data)
             
             if res.status == 204 or not raw_data:
                 print("No content to decode.")

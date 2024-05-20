@@ -1,6 +1,6 @@
 from bnipython.lib.net.httpClient import HttpClient
-from bnipython.lib.util.utils import generateSignature, getTimestampBNIMove, generateGUID
-from bnipython.lib.util.response import responseBNIMove
+from bnipython.lib.util.utils import generateSignature, getTimestampOTR, generateGUID
+from bnipython.lib.util.response import responseOTR
 
 class OTRRemittance():
     def __init__(self, client, options={'channelId'}):
@@ -12,41 +12,46 @@ class OTRRemittance():
         self.configOtr = options
         self.configOtr['channelId'] = options.get('channelId', '')
 
-    def _create_payload(self, payload=None):
-        timeStamp = getTimestampBNIMove()
-        payload = payload
-        return payload, timeStamp
-
-    def _make_request(self, path, method, timeStamp, query_params=None, payload=None):
-        path = f'{path}'
-        if query_params:
-            query_string = '&'.join([f"{key}={value}" for key, value in query_params.items()])
-            path += f'?{query_string}'
+    def _make_request(self, path, method, timeStamp, payload=None):
+        signaturePayload = {**payload, **{ 'timestamp': timeStamp}}
+        signature = generateSignature(
+            {'body': signaturePayload, 'apiSecret': self.client['apiSecret']}
+        )
         res = self.httpClient.requestOtr({
             'method': method,
             'url': f'{self.baseUrl}',
             'path': path,
+            'signature': signature.split('.')[2],
             'timestamp': timeStamp,
             'data': payload,
             'RequestId': generateGUID(),
             'ChannelId': self.configOtr['channelId'],
+            'apiKey': self.client['apiKey'],
+            'accessToken': self.token,
         })
-        print('res', res)
-        return responseBNIMove(params={'res': res})
+        return responseOTR(params={'res': res})
 
-    def getBankAndCurrencyLimitation(self, payload=None, query_params=None):
-        if payload is None:
-            payload = {}
-        _ , timeStamp = self._create_payload(payload)
-        method='GET'
-        path='/IBOCNGWebClient/globsapi/corporate/getBankAndCurrencyLimitation'
-        return self._make_request(path, method, timeStamp, query_params, payload)
-    
-    def chargesAndRateInquiry(self,  payload=None, query_params=None):
+    def getBankAndCurrencyLimitation(self, payload=None):
         """
         Conducts a chargesAndRateInquiry.
 
-        :param params: A dictionary containing the following keys:
+        :param payload: A dictionary containing the following keys:
+            - 'serviceType' (str): Service Type.
+            - 'country' (str): country.
+        :return: A response object from the prescreening process.
+        """
+        if payload is None:
+            payload = {}
+        timeStamp = getTimestampOTR()
+        method='POST'
+        path='/otr/globs/getBankAndCurrencyLimitation'
+        return self._make_request(path, method, timeStamp, payload)
+    
+    def chargesAndRateInquiry(self,  payload=None):
+        """
+        Conducts a chargesAndRateInquiry.
+
+        :param payload: A dictionary containing the following keys:
             - 'orderingId' (str): Id for order (receiver).
             - 'bic' (str): BID Channel.
             - 'orderingAmount' (float): Transaction Amount.
@@ -58,31 +63,31 @@ class OTRRemittance():
         """
         if payload is None:
             payload = {}
-        payload , timeStamp = self._create_payload(payload)
+        timeStamp = getTimestampOTR()
         method='POST'
-        path='/IBOCNGWebClient/globsapi/corporate/getBankAndCurrencyLimitation'
-        return self._make_request(path, method, timeStamp, query_params, payload)
+        path='/otr/globs/chargesAndRateInquiry'
+        return self._make_request(path, method, timeStamp, payload)
     
-    def trackingTransaction(self,  payload=None, query_params=None):
+    def trackingTransaction(self,  payload=None):
         """
         Conducts a trackingTransaction.
 
-        :param params: A dictionary containing the following keys:
+        :param payload: A dictionary containing the following keys:
             - 'referenceNumber' (str): Unique reference from request.
         :return: A response object from the prescreening process.
         """
         if payload is None:
             payload = {}
-        _ , timeStamp = self._create_payload()
-        method='GET'
-        path='/IBOCNGWebClient/globsapi/corporate/transaction/tracking/' + payload.get('referenceNumber', '')
-        return self._make_request(path, method, timeStamp, query_params)
+        timeStamp = getTimestampOTR()
+        method='POST'
+        path='/otr/globs/transaction/tracking/' + payload.get('referenceNumber', '')
+        return self._make_request(path, method, timeStamp, payload)
     
-    def transactionOverbooking(self,  payload=None, query_params=None):
+    def transactionOverbooking(self,  payload=None):
         """
         Conducts a trackingTransaction.
 
-        :param params: A dictionary containing the following keys:
+        :param payload: A dictionary containing the following keys:
             - 'referenceNumber' (str): Unique reference from request.
             - 'orderingId' (str): Id for order (receiver).
             - 'orderingBic' (str): BID Channel.
@@ -99,12 +104,12 @@ class OTRRemittance():
             - 'accountWithInstName' (str): Account with institution name.
             - 'remittanceInfo' (str): Remittance info.
             - 'invoiceNumber' (str): Invoice number.
-            - 'invoiceAmount' (float): Invoice amount.
+            - 'invoiceAmount' (int): Invoice amount.
         :return: A response object from the prescreening process.
         """
         if payload is None:
             payload = {}
-        payload , timeStamp = self._create_payload(payload)
+        timeStamp = getTimestampOTR()
         method='POST'
-        path='/IBOCNGWebClient/globsapi/corporate/transaction/overbooking'
-        return self._make_request(path, method, timeStamp, query_params, payload)
+        path='/otr/globs/transaction/overbooking'
+        return self._make_request(path, method, timeStamp, payload)

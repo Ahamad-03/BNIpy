@@ -90,3 +90,13 @@ def responseBNIMove(params={'res'}):
         error_message = f"Error: {status_code} - {status_message}"
         raise ValueError(error_message)
     return params['res']
+
+def responseOTR(params={'res'}):
+    status_code = params['res'].get('code')
+    if status_code is None:
+        raise ValueError("Missing status code in response")
+    if status_code != "200":
+        status_message = params['res'].get('message', 'Unknown Error')
+        error_message = f"Error: {status_code} - {status_message}"
+        raise ValueError(error_message)
+    return params['res']
