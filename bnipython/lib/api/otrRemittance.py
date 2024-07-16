@@ -30,15 +30,17 @@ class OTRRemittance():
             'accessToken': self.token,
         })
         return responseOTR(params={'res': res})
+            #     - 'serviceType' (str): Service Type.
+            # - 'country' (str): country.
 
     def getBankAndCurrencyLimitation(self, payload=None):
         """
-        Conducts a chargesAndRateInquiry.
+        Conducts a getBankAndCurrencyLimitation.
 
-        :param payload: A dictionary containing the following keys:
-            - 'serviceType' (str): Service Type.
-            - 'country' (str): country.
-        :return: A response object from the prescreening process.
+        Parameters:
+            payload (dict): A dictionary containing the following keys:
+                - serviceType (str): Service Type.
+                - country (str): country.
         """
         if payload is None:
             payload = {}
@@ -49,17 +51,17 @@ class OTRRemittance():
     
     def chargesAndRateInquiry(self,  payload=None):
         """
-        Conducts a chargesAndRateInquiry.
+        Conducts a charges and rate inquiry.
 
-        :param payload: A dictionary containing the following keys:
-            - 'orderingId' (str): Id for order (receiver).
-            - 'bic' (str): BID Channel.
-            - 'orderingAmount' (float): Transaction Amount.
-            - 'orderingCcy' (str): Receiver currency.
-            - 'sourceCcy' (str): Sender currency.
-            - 'detailCharges' (str): Charge Type .
-            - 'serviceType' (str): Service Type.
-        :return: A response object from the prescreening process.
+        Parameters:
+            payload (dict): A dictionary containing the following keys:
+                - orderingId (str): ID for the order (receiver).
+                - bic (str): BID Channel.
+                - orderingAmount (float): Transaction amount.
+                - orderingCcy (str): Receiver currency.
+                - sourceCcy (str): Sender currency.
+                - detailCharges (str): Charge type.
+                - serviceType (str): Service type.
         """
         if payload is None:
             payload = {}
