@@ -481,13 +481,406 @@ class TestBNIDirect(unittest.TestCase):
         self.assertEqual(data, '0')
         print('\033[92m should return requestStatus 0 \033[0m')
 
+    def testBniPopsResubmitCashAndCarry(self):
+        print('\n============================================')
+        bni_direct = BNIDirect(self.client)
+        res = bni_direct.bniPopsResubmitCashAndCarry({
+            "corporateId": "BNI_UAT", 
+            "userId": "BNI_MAKER4", 
+            "transactionReferenceNo": "20240226143153233651", 
+            "SONumber": ""
+        })
+        data = res['requestStatus']
+        # print(json.dumps(res, indent=2))
+        self.assertEqual(data, '0')
+        print('\033[92m should return requestStatus 0 \033[0m')
+
+    def testBniPopsResubmitProductAllocation(self):
+        print('\n============================================')
+        bni_direct = BNIDirect(self.client)
+        res = bni_direct.bniPopsResubmitProductAllocation({
+            "corporateId": "BNI_UAT", 
+            "userId": "BNI_MAKER4", 
+            "transactionReferenceNo": "202402261600016789", 
+            "SONumber": "" 
+        })
+        data = res['requestStatus']
+        # print(json.dumps(res, indent=2))
+        self.assertEqual(data, '0')
+        print('\033[92m should return requestStatus 0 \033[0m')
+
+    def testCreateVirtualAccount(self):
+        print('\n============================================')
+        bni_direct = BNIDirect(self.client)
+        res = bni_direct.createVirtualAccount({
+            "corporateId": "BNI_UAT", 
+            "userId": "BNI_MAKER4", 
+            "companyCode": "7775", 
+            "virtualAccountNo": "819283746658", 
+            "virtualAccountName": "VA Test 1", 
+            "virtualAccountTypeCode": "2", 
+            "billingAmount": "800000", 
+            "varAmount1": "200000", 
+            "varAmount2": "120000", 
+            "expiryDate": "20240228", 
+            "expiryTime": "11:09:07", 
+            "mobilePhoneNo": "08432432432", 
+            "statusCode": "1" 
+        })
+        data = res['requestStatus']
+        # print(json.dumps(res, indent=2))
+        self.assertEqual(data, '0')
+        print('\033[92m should return requestStatus 0 \033[0m')
+
+    def testUpdateVirtualAccount(self):
+        print('\n============================================')
+        bni_direct = BNIDirect(self.client)
+        res = bni_direct.updateVirtualAccount({
+            "corporateId": "BNI_UAT", 
+            "userId": "BNI_MAKER4", 
+            "companyCode": "7775", 
+            "virtualAccountNo": "7775129284933441", 
+            "virtualAccountName": "VA Test WTI", 
+            "virtualAccountTypeCode": "2", 
+            "billingAmount": "800000", 
+            "varAmount1": "200000", 
+            "varAmount2": "120000", 
+            "expiryDate": "20240228", 
+            "expiryTime": "10:10:10", 
+            "mobilePhoneNo": "08432432432", 
+            "statusCode": "2" 
+        })
+        data = res['requestStatus']
+        # print(json.dumps(res, indent=2))
+        self.assertEqual(data, '0')
+        print('\033[92m should return requestStatus 0 \033[0m')
+
+    def testInquiryVirtualAccountTransaction(self):
+        print('\n============================================')
+        bni_direct = BNIDirect(self.client)
+        res = bni_direct.inquiryVirtualAccountTransaction({
+            "corporateId":"BNI_UAT", 
+            "userId":"BNI_MAKER4", 
+            "virtualAccountNo":"7775129284933441", 
+            "fromDate":"20230101", 
+            "toDate":"20240226" 
+        })
+        data = res['requestStatus']
+        # print(json.dumps(res, indent=2))
+        self.assertEqual(data, '0')
+        print('\033[92m should return requestStatus 0 \033[0m')
+
+    def testBulkGetStatus(self):
+        print('\n============================================')
+        bni_direct = BNIDirect(self.client)
+        res = bni_direct.bulkGetStatus({
+            "corporateId":"BNI_UAT", 
+            "userId":"BNI_MAKER4", 
+            "fileRefNo":"20230616103436758", 
+            "apiRefNo":"ALL_MIXAG" 
+        })
+        data = res['requestStatus']
+        # print(json.dumps(res, indent=2))
+        self.assertEqual(data, '0')
+        print('\033[92m should return requestStatus 0 \033[0m')
+
     def testInquiryAccountBalance(self):
         print('\n============================================')
         bni_direct = BNIDirect(self.client)
         res = bni_direct.balanceInquiry({
-            "corporateId":"companymb",
-            "userId":"jenomaker",
-            "accountList": ["116952891", "4447"]
+            "corporateId": "BNI_UAT", 
+            "userId": "BNI_MAKER4", 
+            "accountList": [ 
+                "1000507841", 
+                "108101611" 
+            ] 
+        })
+        data = res['requestStatus']
+        # print(json.dumps(res, indent=2))
+        self.assertEqual(data, '0')
+        print('\033[92m should return requestStatus 0 \033[0m')
+
+    def testInquiryForexRate(self):
+        print('\n============================================')
+        bni_direct = BNIDirect(self.client)
+        res = bni_direct.inquiryForexRate({
+            "corporateId": "BNI_UAT", 
+            "userId": "BNI_MAKER4", 
+            "currencyList": [ 
+                "USD", 
+                "EUR" 
+            ]  
+        })
+        data = res['requestStatus']
+        # print(json.dumps(res, indent=2))
+        self.assertEqual(data, '0')
+        print('\033[92m should return requestStatus 0 \033[0m')
+
+    def testBulkPaymentMixed(self):
+        print('\n============================================')
+        bni_direct = BNIDirect(self.client)
+        res = bni_direct.bulkPaymentMixed({
+            "corporateId": "BNI_UAT",
+            "userId": "BNI_MAKER4",
+            "apiRefNo": "BLKTRX027FEB2024000003",
+            "instructionDate": "20240227",
+            "session": "",
+            "serviceType": "MXD",
+            "debitAcctNo": "",
+            "amount": "",
+            "currency": "",
+            "chargeTo": "",
+            "residenceCode": "",
+            "citizenCode": "",
+            "category": "",
+            "transactionType": "D",
+            "accountNmValidation": "Y",
+            "remark": "BULK PAYMENT MXD",
+            "childContent": "9832132281,NAMA ILMPPJTNU,100001,,REMARK1-HWBM,REMARK2-YFFW,REMARK3-UNBJ,Bene Address 1,Bene Address 2,Bene Address 3,BBBAIDJA,Bank Permata,Bank Permata|Branch Jl. Kapten Tendean 12-14A,Jl. Kapten Tendean 12-14A,Jakarta 12790,Jakarta Selatan,Jakarta,Indonesia,ID,ID,wide.beneficiary@gmail.com,,,,,,,,,REM70587148UDMW,Y,BEN70587148UDMW,EXDET1,EXDET2,EXDET3,EXDET4,EXDET5,,BF,IDR,108098391,OUR,ID,ID,C9,N,N,085317773020,01"
+        })
+        data = res['requestStatus']
+        # print(json.dumps(res, indent=2))
+        self.assertEqual(data, '0')
+        print('\033[92m should return requestStatus 0 \033[0m')
+
+    def testPayrollMixed(self):
+        print('\n============================================')
+        bni_direct = BNIDirect(self.client)
+        res = bni_direct.payrollMixed({
+            "corporateId": "companymb",
+            "userId": "jenomaker",
+            "apiRefNo": "YXX029SEPT2300997131",
+            "instructionDate": "20230929",
+            "session": "",
+            "serviceType": "MXD",
+            "debitAcctNo": "",
+            "amount": "",
+            "currency": "",
+            "chargeTo": "",
+            "residenceCode": "",
+            "citizenCode": "",
+            "category": "",
+            "transactionType": "D",
+            "accountNmValidation": "Y",
+            "remark": "BULK PAYMENT MXD",
+            "childContent": "889213621,NAMA SWQUTGLHR,101,,REMARK1-IGTE,REMARK2-QEZQ,REMARK3-TYXH,Bene Address 1,Bene Address 2,Bene Address 3,,,,,,,,,,,wide.beneficiary@gmail.com,,,,2012,,,,,REM38060584AHIQ,Y,BEN38060584AHIQ,EXDET1,EXDET2,EXDET3,EXDET4,EXDET5,,IHT,IDR,108098391,OUR,ID,ID,C9,N,,,|@|889213622,NAMA VONGVHDPW,100002,,REMARK1-TLHU,REMARK2-RNWB,REMARK3-BOYN,Bene Address 1,Bene Address 2,Bene Address 3,BRINIDJA,Bank Raykat Indonesia,Bank Raykat Indonesia|Branch Jl. M.H Thamrin No. 1,Jl. M.H Thamrin No. 1,Jakarta 10310,Jakarta Pusat,Jakarta,Indonesia,ID,ID,wide.beneficiary@gmail.com,,,,,,,,,REM67021138WHQM,Y,BEN67021138WHQM,EXDET1,EXDET2,EXDET3,EXDET4,EXDET5,2,LLG,IDR,108098391,OUR,ID,ID,C9,N,,,|@|889213623,NAMA CFOJGYSCN,100000002,,REMARK1-JIEV,REMARK2-EPMP,REMARK3-ZXFR,Bene Address 1,Bene Address 2,Bene Address 3,BRINIDJA,Bank Raykat Indonesia,Bank Raykat Indonesia|Branch Jl. M.H Thamrin No. 1,Jl. M.H Thamrin No. 1,Jakarta 10310,Jakarta Pusat,Jakarta,Indonesia,ID,ID,wide.beneficiary@gmail.com,,,,,,,,,REM53427300BHQC,Y,BEN53427300BHQC,EXDET1,EXDET2,EXDET3,EXDET4,EXDET5,,RTGS,IDR,108098391,OUR,ID,ID,C9,N,,,|@|889213624,NAMA YPEGAUEUJ,100003,,REMARK1-NXHV,REMARK2-DMNV,REMARK3-RNMI,Bene Address 1,Bene Address 2,Bene Address 3,002,Bank Raykat Indonesia,Bank Raykat Indonesia|Branch Jl. M.H Thamrin No. 1,Jl. M.H Thamrin No. 1,Jakarta 10310,Jakarta Pusat,Jakarta,Indonesia,ID,ID,wide.beneficiary@gmail.com,,,,,,,,,REM87661139PXGR,Y,BEN87661139PXGR,EXDET1,EXDET2,EXDET3,EXDET4,EXDET5,,OT,IDR,108098391,OUR,ID,ID,C9,N,,,|@|1150007270863,NAMA TAQMEAMLE,100001,,REMARK1-UZAB,REMARK2-RXWS,REMARK3-UWPS,Bene Address 1,Bene Address 2,Bene Address 3,BMRIIDJA,BANK MANDIRI,BANK MANDIRI BRANCH,Jl. Kapten Tendean 12-14A,Jakarta 12790,Jakarta Selatan,Jakarta,Indonesia,ID,ID,wide.beneficiary@gmail.com,,,,,,,,,REM96734911GLBT,Y,BEN96734911GLBT,EXDET1,EXDET2,EXDET3,EXDET4,EXDET5,,BF,IDR,108098391,OUR,ID,ID,C9,N,N,6281280533832,03|@|889213626,NAMA QVBCZETAV,102,,REMARK1-SBUR,REMARK2-URWV,REMARK3-HBSC,Bene Address 1,Bene Address 2,Bene Address 3,BIC|ABBYGB2LXXX,Abbey National,Abbey National|Branch 2 Triton Square,2 Triton Square,Regent's Place NW1 3AN,London,London,United Kingdom,ID,ID,wide.beneficiary@gmail.com,085317773020,021991826,Bank BNI,2012,N,N,C9,LLD Desc,REM61083690MDPP,Y,BEN61083690MDPP,EXDET1,EXDET2,EXDET3,EXDET4,EXDET5,,IFT,USD,108098391,OUR,ID,ID,C9,N,,,"
+        })
+        data = res['requestStatus']
+        # print(json.dumps(res, indent=2))
+        self.assertEqual(data, '0')
+        print('\033[92m should return requestStatus 0 \033[0m')
+
+    def testDomestivSingleBIFastTransfer(self):
+        print('\n============================================')
+        bni_direct = BNIDirect(self.client)
+        res = bni_direct.domestivSingleBIFastTransfer({
+            "corporateId": "BNI_UAT",
+            "userId": "BNI_MAKER4", 
+            "debitedAccountNo": "108098391", 
+            "amountCurrency": "IDR", 
+            "amount": "500000", 
+            "exchangeRateCode": "Cr", 
+            "treasuryReferenceNo": "", 
+            "chargeTo": "OUR", 
+            "remark1": "BIFast-RMK1", 
+            "remark2": "BIFast-RMK1", 
+            "remark3": "BIFast-RMK1", 
+            "remitterReferenceNo": "REM11OPTYERT0", 
+            "finalizePaymentFlag": "Y", 
+            "beneficiaryReferenceNo": "BEN11OPDTAS9", 
+            "usedProxy": "N", 
+            "beneficiaryAccountNo": "9832132281", 
+            "proxyId": "", 
+            "beneficiaryBankCode": "CENAIDJA", 
+            "beneficiaryBankName": "Bank BCA", 
+            "notificationFlag": "N", 
+            "beneficiaryEmail": "", 
+            "transactionInstructionDate": "20240226", 
+            "transactionPurposeCode": "00"
+        })
+        data = res['requestStatus']
+        # print(json.dumps(res, indent=2))
+        self.assertEqual(data, '0')
+        print('\033[92m should return requestStatus 0 \033[0m')
+
+    def testInquiryBIFastBeneficiaryName(self):
+        print('\n============================================')
+        bni_direct = BNIDirect(self.client)
+        res = bni_direct.inquiryBIFastBeneficiaryName({
+            "corporateId": "BNI_UAT", 
+            "userId": "BNI_MAKER4", 
+            "usedProxy": "N", 
+            "beneficiaryAccountNo": "9832132281", 
+            "proxyId": "", 
+            "beneficiaryBankCode": "CENAIDJA"
+        })
+        data = res['requestStatus']
+        # print(json.dumps(res, indent=2))
+        self.assertEqual(data, '0')
+        print('\033[92m should return requestStatus 0 \033[0m')
+
+    def testSingleBulkPayment(self):
+        print('\n============================================')
+        bni_direct = BNIDirect(self.client)
+        res = bni_direct.singleBulkPayment({
+            "corporateId": "BNI_UAT", 
+            "userId": "BNI_MAKER4", 
+            "apiRefNo": "API-REF-BLK-X9", 
+            "instructionDate": "20240229", 
+            "session": "1", 
+            "serviceType": "SBMXD", 
+            "isSTP": "N", 
+            "transactionType": "D", 
+            "remark": "Single To Bulk Payment Mixed From API", 
+            "accountNmValidation": "N", 
+            "transactionDetail": [ 
+                                    { 
+                                        "creditAcctNo": "114479721", 
+                                        "creditAcctNm": "BULOG4", 
+                                        "amount": "100", 
+                                        "treasury": "", 
+                                        "remark1": "RMK1", 
+                                        "remark2": "RMK2", 
+                                        "remark3": "RMK3", 
+                                        "benAddr1": "BENADDR1", 
+                                        "benAddr2": "BENADDR2", 
+                                        "benAddr3": "BENADDR3", 
+                                        "benBankCode": "BIC|ABBYGB2LXXX", 
+                                        "benBankNm": "Abbey National", 
+                                        "benBranchNm": "Abbey National Branch 2 Triton Square", 
+                                        "benBankAddr1": "BENBANKADDR1", 
+                                        "benBankAddr2": "BENBANKADDR2", 
+                                        "benBankAddr3": "BENBANKADDR3", 
+                                        "benBankCityNm": "BENBANKCITY", 
+                                        "benBankCountryNm": "United Kingdom", 
+                                        "benResidenceCd": "GB", 
+                                        "benCountryCd": "GB", 
+                                        "benEmail": "wide.uatbeneficiary@gmail.com", 
+                                        "benPhone": "085232323", 
+                                        "benFax": "", 
+                                        "correspondentBank": "", 
+                                        "purposeCode": "2012", 
+                                        "affiliate": "N", 
+                                        "identical": "N", 
+                                        "benCategory": "C9", 
+                                        "lldDescription": "LLDDESC", 
+                                        "orderPartyRefNo": "REM77812HYFRK", 
+                                        "finalizePayment": "N", 
+                                        "counterPartyRefNo": "BEN77812HYFRK", 
+                                        "extraDetail1": "EXTDET1", 
+                                        "extraDetail2": "EXTDET2", 
+                                        "extraDetail3": "EXTDET3", 
+                                        "extraDetail4": "EXTDET4", 
+                                        "extraDetail5": "EXTDET5", 
+                                        "typeCode": "", 
+                                        "mixedServiceCode": "IFT", 
+                                        "mixedCurrency": "USD", 
+                                        "mixedDebitAcctNo": "315592342", 
+                                        "mixedChargeTo": "OUR", 
+                                        "mixedRemCountryCode": "ID", 
+                                        "mixedRemCitizenCode": "ID", 
+                                        "mixedRemCategory": "C9", 
+                                        "proxyId": "", 
+                                        "proxyFlag": "" 
+                                    } 
+                                ] 
+        })
+        data = res['requestStatus']
+        # print(json.dumps(res, indent=2))
+        self.assertEqual(data, '0')
+        print('\033[92m should return requestStatus 0 \033[0m')
+
+    def testSinglePayroll(self):
+        print('\n============================================')
+        bni_direct = BNIDirect(self.client)
+        res = bni_direct.singlePayroll({
+            "corporateId": "BNI_UAT", 
+            "userId": "BNI_MAKER4", 
+            "apiRefNo": "API-REF-PROLL-X9", 
+            "instructionDate": "20240229", 
+            "session": "1", 
+            "serviceType": "SPMXD", 
+            "isSTP": "N", 
+            "transactionType": "D", 
+            "remark": "Single To Payroll Mixed From API", 
+            "accountNmValidation": "N", 
+            "transactionDetail": [ 
+                { 
+                    "creditAcctNo": "114479721", 
+                    "creditAcctNm": "BULOG4", 
+                    "amount": "100", 
+                    "treasury": "", 
+                    "remark1": "RMK1", 
+                    "remark2": "RMK2", 
+                    "remark3": "RMK3", 
+                    "benAddr1": "BENADDR1", 
+                    "benAddr2": "BENADDR2", 
+                    "benAddr3": "BENADDR3", 
+                    "benBankCode": "BIC|ABBYGB2LXXX", 
+                    "benBankNm": "Abbey National", 
+                    "benBranchNm": "Abbey National Branch 2 Triton Square", 
+                    "benBankAddr1": "BENBANKADDR1", 
+                    "benBankAddr2": "BENBANKADDR2", 
+                    "benBankAddr3": "BENBANKADDR3", 
+                    "benBankCityNm": "BENBANKCITY", 
+                    "benBankCountryNm": "United Kingdom", 
+                    "benResidenceCd": "GB", 
+                    "benCountryCd": "GB", 
+                    "benEmail": "wide.uatbeneficiary@gmail.com", 
+                    "benPhone": "085232323", 
+                    "benFax": "", 
+                    "correspondentBank": "", 
+                    "purposeCode": "2012", 
+                    "affiliate": "N", 
+                    "identical": "N", 
+                    "benCategory": "C9", 
+                    "lldDescription": "LLDDESC", 
+                    "orderPartyRefNo": "REM77812HYFRK", 
+                    "finalizePayment": "N", 
+                    "counterPartyRefNo": "BEN77812HYFRK", 
+                    "extraDetail1": "EXTDET1", 
+                    "extraDetail2": "EXTDET2", 
+                    "extraDetail3": "EXTDET3", 
+                    "extraDetail4": "EXTDET4", 
+                    "extraDetail5": "EXTDET5", 
+                    "typeCode": "", 
+                    "mixedServiceCode": "IFT", 
+                    "mixedCurrency": "USD", 
+                    "mixedDebitAcctNo": "315592342", 
+                    "mixedChargeTo": "OUR", 
+                    "mixedRemCountryCode": "ID", 
+                    "mixedRemCitizenCode": "ID", 
+                    "mixedRemCategory": "C9", 
+                    "proxyId": "", 
+                    "proxyFlag": "" 
+                } 
+            ] 
+        })
+        data = res['requestStatus']
+        # print(json.dumps(res, indent=2))
+        self.assertEqual(data, '0')
+        print('\033[92m should return requestStatus 0 \033[0m')
+
+    def testSingleBulkPaymentSubmit(self):
+        print('\n============================================')
+        bni_direct = BNIDirect(self.client)
+        res = bni_direct.singleBulkPaymentSubmit({
+            "corporateId": "BNI_UAT", 
+            "userId": "BNI_MAKER4", 
+            "apiRefNo": "API-REF-BLK-Y0" 
+        })
+        data = res['requestStatus']
+        # print(json.dumps(res, indent=2))
+        self.assertEqual(data, '0')
+        print('\033[92m should return requestStatus 0 \033[0m')
+
+    def testSinglePayrollSubmit(self):
+        print('\n============================================')
+        bni_direct = BNIDirect(self.client)
+        res = bni_direct.singlePayrollSubmit({
+            "corporateId": "BNI_UAT", 
+            "userId": "BNI_MAKER4", 
+            "apiRefNo": "API-REF-PROLL-Y0" 
         })
         data = res['requestStatus']
         # print(json.dumps(res, indent=2))
