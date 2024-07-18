@@ -746,7 +746,7 @@ class BNIDirect():
         path='/bnidirect/api/MassPayment/PayrollMixed'
         return self._make_request(path, method, timeStamp, payload)
 
-    def domestivSingleBIFastTransfer(self, payload=None):
+    def domesticSingleBIFastTransfer(self, payload=None):
         """
         Service for conducting domestic single BI-FAST transfers.
 

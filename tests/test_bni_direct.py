@@ -670,10 +670,10 @@ class TestBNIDirect(unittest.TestCase):
         self.assertEqual(data, '0')
         print('\033[92m should return requestStatus 0 \033[0m')
 
-    def testDomestivSingleBIFastTransfer(self):
+    def testDomesticSingleBIFastTransfer(self):
         print('\n============================================')
         bni_direct = BNIDirect(self.client)
-        res = bni_direct.domestivSingleBIFastTransfer({
+        res = bni_direct.domesticSingleBIFastTransfer({
             "corporateId": "BNI_UAT",
             "userId": "BNI_MAKER4", 
             "debitedAccountNo": "108098391", 
