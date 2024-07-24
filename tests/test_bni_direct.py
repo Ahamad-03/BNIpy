@@ -647,8 +647,8 @@ class TestBNIDirect(unittest.TestCase):
         print('\n============================================')
         bni_direct = BNIDirect(self.client)
         res = bni_direct.payrollMixed({
-            "corporateId": "companymb",
-            "userId": "jenomaker",
+            "corporateId": "BNI_UAT",
+            "userId": "BNI_MAKER4",
             "apiRefNo": "YXX029SEPT2300997131",
             "instructionDate": "20230929",
             "session": "",
