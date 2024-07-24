@@ -77,7 +77,7 @@ class HttpClient():
         return response.json()
 
     def requestV2BniDirect(self, options={'method', 'apiKey', 'accessToken', 'url', 'path', 'data', 'signature', 'timestamp', 'bniDirectKey'}):
-        url = f"{options['url']}{options['path']}?access_token={options['accessToken']}"
+        url = f"{options['url']}{options['path']}"
         payload = json.dumps(options['data'])
         headers = {
             'User-Agent': 'bni-python/0.1.0',
@@ -85,7 +85,8 @@ class HttpClient():
             'x-signature': options['signature'],
             'x-timestamp': options['timestamp'],
             'Content-Type': 'application/json',
-            'bnidirect-api-key': options['bniDirectKey']
+            'bnidirect-api-key': options['bniDirectKey'],
+            'Authorization': f"Bearer {options['accessToken']}"
         }
         response = requests.request(
             method=options['method'],

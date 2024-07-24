@@ -938,7 +938,7 @@ class BNIDirect():
             payload = {}
         timeStamp = getTimestamp()
         method='POST'
-        path='/bnidirect/api/MassPayment/SinglePayrolMixed'
+        path='/bnidirect/api/MassPayment/SinglePayrollMixed'
         return self._make_request(path, method, timeStamp, payload)
 
     def singleBulkPaymentSubmit(self, payload=None):
